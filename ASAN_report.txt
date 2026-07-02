@@ -1,0 +1,35 @@
+----------------------------------------
+До рефакторинга
+----------------------------------------
+=================================================================
+==21864==ERROR: AddressSanitizer: new-delete-type-mismatch on 0x7515825e0010 in thread T0:
+  object passed to delete has wrong type:
+  size of the allocated type:   8 bytes;
+  size of the deallocated type: 1 bytes.
+    #0 0x644bce9db55b in operator delete(void*, unsigned long) (/workspaces/sprint-8/tmp_leak_built+0xf255b) (BuildId: df746e57213ab4bd12c6e201b4cc038dadf63cda)
+    #1 0x644bcea3cbbe in main /workspaces/sprint-8/tests/tests_data/leak_example.cpp:18
+    #2 0x78f5834d7577  (/lib/x86_64-linux-gnu/libc.so.6+0x2a577) (BuildId: ae7440bbdce614e0e79280c3b2e45b1df44e639c)
+    #3 0x78f5834d763a in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a63a) (BuildId: ae7440bbdce614e0e79280c3b2e45b1df44e639c)
+    #4 0x644bce8f2684 in _start (/workspaces/sprint-8/tmp_leak_built+0x9684) (BuildId: df746e57213ab4bd12c6e201b4cc038dadf63cda)
+
+0x7515825e0010 is located 0 bytes inside of 8-byte region [0x7515825e0010,0x7515825e0018)
+allocated by thread T0 here:
+    #0 0x644bce9da43b in operator new(unsigned long) (/workspaces/sprint-8/tmp_leak_built+0xf143b) (BuildId: df746e57213ab4bd12c6e201b4cc038dadf63cda)
+    #1 0x644bcea3cb75 in main /workspaces/sprint-8/tests/tests_data/leak_example.cpp:17
+    #2 0x78f5834d7577  (/lib/x86_64-linux-gnu/libc.so.6+0x2a577) (BuildId: ae7440bbdce614e0e79280c3b2e45b1df44e639c)
+    #3 0x78f5834d763a in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2a63a) (BuildId: ae7440bbdce614e0e79280c3b2e45b1df44e639c)
+    #4 0x644bce8f2684 in _start (/workspaces/sprint-8/tmp_leak_built+0x9684) (BuildId: df746e57213ab4bd12c6e201b4cc038dadf63cda)
+
+SUMMARY: AddressSanitizer: new-delete-type-mismatch (/workspaces/sprint-8/tmp_leak_built+0xf255b) (BuildId: df746e57213ab4bd12c6e201b4cc038dadf63cda) in operator delete(void*, unsigned long)
+==21864==HINT: if you don't care about these errors you may set ASAN_OPTIONS=new_delete_type_mismatch=0
+==21864==ABORTING
+----------------------------------------
+Отчет об утечке
+----------------------------------------
+/workspaces/sprint-8/tests/tests_data/leak_example.cpp:5:5: remark: Объявлен невиртуальный деструктор базового класса, исправлено
+    5 |     ~Ba(e) {}  // Невиртуальный
+      |     ^
+----------------------------------------
+После рефакторинга
+----------------------------------------
+[Утечек не обнаружено]

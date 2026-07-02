@@ -1,0 +1,35 @@
+----------------------------------------
+До рефакторинга
+----------------------------------------
+=== Замер времени выполнения ===
+           7588.70 msec task-clock                       #    0.999 CPUs utilized             
+       7.595065035 seconds time elapsed
+=================================
+
+=== Профиль функций ===
+# Overhead  Symbol                                                                                                                                                                                   
+     3.80%  [k] clear_page_erms
+     3.76%  [.] std::string::basic_string(std::string const&)
+     2.20%  [.] std::string::basic_string()
+     1.92%  [.] std::string::~basic_string()
+     1.51%  [.] std::__new_allocator<char>::~__new_allocator()
+----------------------------------------
+Отчет о рефакторинге
+----------------------------------------
+/workspaces/sprint-8/tests/tests_data/perf_example.cpp:10:21: remark: Объявлена non-ref переменная в range-for, исправлено
+   10 |     for (const auto obj : vec) {               // Копирование без &
+      |                     ^
+----------------------------------------
+После рефакторинга
+----------------------------------------
+=== Замер времени выполнения ===
+           3997.73 msec task-clock                       #    0.998 CPUs utilized             
+       4.006457495 seconds time elapsed
+=================================
+
+=== Профиль функций ===
+# Overhead  Symbol                                                                                                                                        
+     6.11%  [k] clear_page_erms
+     4.71%  [.] std::string::basic_string()
+     1.98%  [.] std::string::~basic_string()
+     1.51%  [.] std::__new_allocator<char>::~__new_allocator()
