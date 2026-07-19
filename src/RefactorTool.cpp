@@ -128,7 +128,6 @@ auto NvDtorMatcher() {
                     cxxDestructorDecl(
                     unless(isVirtual()), // без virtual
                         unless(isImplicit()), // без implicit
-                        //unless(isDefaulted()), // без = default
                         unless(isDeleted())   // без = delete
                     ).bind("nonVirtualDtor")
                 )
